@@ -1,11 +1,11 @@
 This is basic kafka+zookeeper+kafdrop k8s helm install demo
 
 
-helm upgrade zookeeper-dev bitnami/zookeeper -n kafka -f ./kafka/zookeeper-values.yaml --wait --install
+helm upgrade zookeeper-dev bitnami/zookeeper -n kafka -f ./zookeeper-values.yaml --wait --install
 
-helm upgrade kafka-dev bitnami/kafka -n kafka -f ./kafka/kafka-values.yaml --wait --install
+helm upgrade kafka-dev bitnami/kafka -n kafka -f ./kafka-values.yaml --wait --install
 
-helm  upgrade kafdrop-dev -n kafka -f kafka/kafdrop-values.yaml ./kafka/kafdrop/chart/ --wait --install
+helm  upgrade kafdrop-dev -n kafka -f ./kafdrop-values.yaml ./kafdrop/chart/ --wait --install
 
 Kafka can be accessed by consumers via port 9092 on the following DNS name from within your cluster:
 
