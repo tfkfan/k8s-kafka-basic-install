@@ -1,0 +1,14 @@
+controller:
+  replicaCount: 0
+broker:
+  replicaCount: 1
+kraft:
+  enabled: false
+zookeeper:
+  enabled: false
+listeners:
+  client:
+    protocol: PLAINTEXT
+externalZookeeper:
+  servers: zookeeper-dev.kafka.svc.cluster.local
+
