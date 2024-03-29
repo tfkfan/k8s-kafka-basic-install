@@ -3,7 +3,8 @@
 validity_days=1200
 ca_path=$1
 keypair_name=$2
-conf_path=$3
+csr_path=$3
+conf_path=$4
 keystore_password=changeit
 truststore_password=changeit
 
@@ -12,7 +13,7 @@ echo "Signing cert.."
 openssl x509 \
   -req \
   -days ${validity_days} \
-  -in ${keypair_name}.csr \
+  -in ${csr_path} \
   -CA ${ca_path}.crt \
   -CAkey ${ca_path}.key \
   -CAcreateserial \
