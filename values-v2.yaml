@@ -1,0 +1,31 @@
+kafka:
+  enabled: true
+  controller:
+    replicaCount: 0
+    automountServiceAccountToken: true
+  broker:
+    replicaCount: 2
+    persistence:
+      size: 1Gi
+    automountServiceAccountToken: true
+  kraft:
+    enabled: false
+  zookeeper:
+    enabled: true
+    persistence:
+      size: 1Gi
+  listeners:
+    client:
+      protocol: PLAINTEXT
+    controller:
+      protocol: PLAINTEXT
+    interbroker:
+      protocol: PLAINTEXT
+    external:
+      protocol: PLAINTEXT
+  externalAccess:
+    enabled: true
+    broker:
+      service:
+        type: ClusterIP
+        domain: 1.1.1.1

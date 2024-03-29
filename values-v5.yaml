@@ -1,0 +1,94 @@
+kafka:
+  enabled: true
+  image:
+    debug: true
+  controller:
+    replicaCount: 0
+    automountServiceAccountToken: true
+  broker:
+    replicaCount: 2
+    persistence:
+      size: 1Gi
+    automountServiceAccountToken: true
+  kraft:
+    enabled: false
+  listeners:
+    client:
+      protocol: SSL
+      sslClientAuth: required
+    controller:
+      protocol: SSL
+      sslClientAuth: required
+    interbroker:
+      protocol: SSL
+      sslClientAuth: required
+    external:
+      protocol: SSL
+      sslClientAuth: required
+  tls:
+    type: JKS
+    existingSecret: kafka-jks
+    keystorePassword: changeit
+    truststorePassword: changeit
+    zookeeper:
+      enabled: true
+      existingSecret: zookeeper-jks
+      keystorePassword: changeit
+      truststorePassword: changeit
+  externalAccess:
+    enabled: true
+    broker:
+      service:
+        type: ClusterIP
+        domain: 1.1.1.1
+  zookeeper:
+    enabled: true
+    persistence:
+      size: 1Gi
+    tls:
+      client:
+        enabled: true
+        auth: need
+        existingSecret: zookeeper-jks
+        keystorePassword: changeit
+        truststorePassword: changeit
+      quorum:
+        enabled: true
+        auth: need
+        existingSecret: zookeeper-jks
+        keystorePassword: changeit
+        truststorePassword: changeit
+    networkPolicy:
+      enabled: false
+kafdrop:
+  enabled: true
+  replicaCount: 1
+  kafka:
+    brokerConnect: kafka-dev-broker-0.kafka-dev-broker-headless.kafka.svc.cluster.local:9092, kafka-dev-broker-1.kafka-dev-broker-headless.kafka.svc.cluster.local:9092
+    ssl:
+      enable: true
+      properties: |
+        ssl.truststore.location=/tmp/stores/kafka.truststore.jks
+        ssl.keystore.location=/tmp/stores/kafka.keystore.jks
+        ssl.truststore.password: changeit
+        ssl.keystore.password: changeit
+        security.protocol: SSL
+      secretName: "kafka-client-jks"
+  service:
+    type: ClusterIP
+    targetPort: 8080
+  jvm:
+    opts: "-Xms228M -Xmx228M"
+  resources:
+    limits:
+      cpu: 100m
+      memory: 600Mi
+    requests:
+      cpu: 10m
+      memory: 500Mi
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - kafdrop-dev.k8s.local.ru

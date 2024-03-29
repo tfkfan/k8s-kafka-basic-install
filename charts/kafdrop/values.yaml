@@ -1,0 +1,84 @@
+replicaCount: 1
+
+image:
+  repository: obsidiandynamics/kafdrop
+  tag: latest
+  pullPolicy: Always
+
+kafka:
+  brokerConnect: localhost:9092
+  properties: ""
+  truststore: ""
+  keystore: ""
+  propertiesFile: "kafka.properties"
+  truststoreFile: "kafka.truststore.jks"
+  keystoreFile: "kafka.keystore.jks"
+  ssl:
+    enable: false
+    properties: |
+      ssl.truststore.password: PASSWORD
+      ssl.truststore.location=/tmp/stores/kafka.truststore.jks
+      ssl.keystore.password: PASSWORD
+      ssl.keystore.location=/tmp/stores/kafka.keystore.jks
+      security.protocol: SSL
+    secretName: "kafka-client1-jks"
+
+host:
+
+jvm:
+  opts: ""
+jmx:
+  port: 8686
+
+nameOverride: ""
+fullnameOverride: ""
+
+cmdArgs: ""
+
+global:
+  kubeVersion: ~
+
+server:
+  port: 9000
+  servlet:
+    contextPath: /
+
+service:
+  annotations: {}
+  type: NodePort
+  port: 9000
+  nodePort: 30900
+
+ingress:
+  enabled: false
+  annotations: {}
+  apiVersion: ~
+  #ingressClassName: ~
+  path: /
+  #pathType: ~
+  hosts: []
+  tls: []
+
+resources:
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  requests:
+    cpu: 1m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+podLabels: {}
+
+podAnnotations: {}
+
+hostAliases: []
+
+mountProtoDesc: 
+  enabled: false
+  hostPath:

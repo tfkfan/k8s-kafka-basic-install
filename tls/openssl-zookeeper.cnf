@@ -1,0 +1,20 @@
+[req]
+default_bits = 4096
+encrypt_key  = yes
+default_md   = sha256
+prompt       = no
+utf8         = yes
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+[req_distinguished_name]
+C  = RU
+ST = Moscow
+L  = Moscow
+O  = ORG
+CN = Service cert
+[v3_req]
+basicConstraints     = CA:FALSE
+subjectKeyIdentifier = hash
+keyUsage             = digitalSignature, keyEncipherment
+extendedKeyUsage     = clientAuth, serverAuth
+subjectAltName       = DNS:kafka-dev-zookeeper,DNS:kafka-dev-zookeeper.kafka.svc,DNS:kafka-dev-zookeeper.kafka.svc.cluster.local,DNS:kafka-dev-zookeeper-0.kafka-dev-zookeeper-headless.kafka.svc.cluster.local,DNS:kafka-dev-zookeeper-1.kafka-dev-zookeeper-headless.kafka.svc.cluster.local
