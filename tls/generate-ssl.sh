@@ -25,8 +25,7 @@ openssl x509 \
   -CA ${ca_path}.crt \
   -CAkey ${ca_path}.key \
   -CAcreateserial \
-  -extensions v3_req \
-  -extfile openssl-${keypair_name}.cnf \
+  -copy_extensions copyall \
   -out ${keypair_name}.crt
 
 rm -f ./${keypair_name}.csr
